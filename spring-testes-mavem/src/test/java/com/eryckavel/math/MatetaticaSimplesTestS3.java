@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 @DisplayName("Teste de Matematica Simples")
-class MatetaticaSimplesTest {
+class MatetaticaSimplesTestS3 {
 
     private static final double N1 = 10;
     private static final double N2 = 4;
