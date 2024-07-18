@@ -1,0 +1,4 @@
+junit:
+  jupiter:
+    testclass:
+      default: org.junit.jupiter.api.ClassOrderer$OrderAnnotation
