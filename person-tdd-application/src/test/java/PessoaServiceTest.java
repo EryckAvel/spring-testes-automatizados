@@ -95,4 +95,12 @@ public class PessoaServiceTest {
         assertEquals(pessoa.getGenero(), pessoaAtual.getGenero(), () -> "O Genero e diferente!");
     }
 
+    @Test
+    @DisplayName("Quando criar uma pessoa com um email nulo retornar umthrow exception!")
+    void testCriandoPessoa_ComEmailNulo_RetonarUmaIllegalArgumentException(){
+        IPessoaService service = new PessoaService();
+        pessoa.setEmail(null);
+        assertThrows(IllegalArgumentException.class, () -> service.criarPessoa(pessoa), () -> "Campo de Email vazio retornar uma IllegalArgumentException!");
+    }
+
 }
