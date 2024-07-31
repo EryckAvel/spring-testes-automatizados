@@ -10,9 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PessoaServiceTest {
 
     Pessoa pessoa;
+    IPessoaService service;
 
     @BeforeEach
     void setup(){
+        service = new PessoaService();
         pessoa = new Pessoa(
                 "Eryck",
                 "Calisto",
@@ -25,7 +27,6 @@ public class PessoaServiceTest {
     @Test
     @DisplayName("Quando criar uma pessoa e for sucedida ela deve retornar uma pessoa!")
     void testCriandoPessoa_QuandoSucedido_retornarPessoa(){
-        IPessoaService service = new PessoaService();
         Pessoa pessoaAtual = service.criarPessoa(pessoa);
         assertNotNull(pessoaAtual, () -> "O criarPessoa() não possue retorno null!");
 
@@ -34,7 +35,6 @@ public class PessoaServiceTest {
     @Test
     @DisplayName("Quando criar uma pessoa e for sucedida ela deve ter todos os campos preenchidos e retornar uma pessoa!")
     void testeCriandoPessoa_QuandoSucedido_ContemCamposPreenchidosERetornarPessoa(){
-        IPessoaService service = new PessoaService();
         Pessoa pessoaAtual = service.criarPessoa(pessoa);
         assertNotNull(pessoaAtual.getId(), () -> "Id esta retornando nulo!");
         assertNotNull(pessoaAtual.getPrimeiroNome(), () -> "Primeiro Nome esta retornando nulo!");
@@ -53,7 +53,6 @@ public class PessoaServiceTest {
     @Test
     @DisplayName("Quando criar uma pessoa e for sucedida ela deve conter primeiro nome e retornar uma pessoa!")
     void testCriandoPessoa_QuandoSucedido_ContemPrimeiroNomeERetornarPessoa(){
-        IPessoaService service = new PessoaService();
         Pessoa pessoaAtual = service.criarPessoa(pessoa);
         assertNotNull(pessoaAtual.getPrimeiroNome(), () -> "Primeiro Nome esta retornando nulo!");
         assertEquals(pessoa.getPrimeiroNome(), pessoaAtual.getPrimeiroNome(), () -> "O primeiro nome e diferente!");
@@ -62,7 +61,6 @@ public class PessoaServiceTest {
     @Test
     @DisplayName("Quando criar uma pessoa e for sucedida ela deve conter segundo nome e retornar uma pessoa!")
     void testeCriandoPessoa_QuandoSucedido_ContemSegundoNomeERetornarPessoa(){
-        IPessoaService service = new PessoaService();
         Pessoa pessoaAtual = service.criarPessoa(pessoa);
         assertNotNull(pessoaAtual.getSegundoNome(), () -> "Segundo Nome esta retornando nulo!");
         assertEquals(pessoa.getSegundoNome(), pessoaAtual.getSegundoNome(), () -> "O segundo nome e diferente!");
@@ -71,7 +69,6 @@ public class PessoaServiceTest {
     @Test
     @DisplayName("Quando criar uma pessoa e for sucedida ela deve conter email e retornar uma pessoa!")
     void testeCriandoPessoa_QuandoSucedido_ContemEmailERetornarPessoa(){
-        IPessoaService service = new PessoaService();
         Pessoa pessoaAtual = service.criarPessoa(pessoa);
         assertNotNull(pessoaAtual.getEmail(), () -> "Email esta retornando nulo!");
         assertEquals(pessoa.getEmail(), pessoaAtual.getEmail(), () -> "O Email e diferente!");
@@ -80,7 +77,6 @@ public class PessoaServiceTest {
     @Test
     @DisplayName("Quando criar uma pessoa e for sucedida ela deve conter endereco e retornar uma pessoa!")
     void testeCriandoPessoa_QuandoSucedido_ContemEnderecoERetornarPessoa(){
-        IPessoaService service = new PessoaService();
         Pessoa pessoaAtual = service.criarPessoa(pessoa);
         assertNotNull(pessoaAtual.getEndereco(), () -> "Endereco esta retornando nulo!");
         assertEquals(pessoa.getEndereco(), pessoaAtual.getEndereco(), () -> "O Endereco e diferente!");
@@ -89,7 +85,6 @@ public class PessoaServiceTest {
     @Test
     @DisplayName("Quando criar uma pessoa e for sucedida ela deve conter genero e retornar uma pessoa!")
     void testeCriandoPessoa_QuandoSucedido_ContemGeneroERetornarPessoa(){
-        IPessoaService service = new PessoaService();
         Pessoa pessoaAtual = service.criarPessoa(pessoa);
         assertNotNull(pessoaAtual.getGenero(), () -> "Genero esta retornando nulo!");
         assertEquals(pessoa.getGenero(), pessoaAtual.getGenero(), () -> "O Genero e diferente!");
@@ -98,9 +93,17 @@ public class PessoaServiceTest {
     @Test
     @DisplayName("Quando criar uma pessoa com um email nulo retornar umthrow exception!")
     void testCriandoPessoa_ComEmailNulo_RetonarUmaIllegalArgumentException(){
-        IPessoaService service = new PessoaService();
         pessoa.setEmail(null);
         assertThrows(IllegalArgumentException.class, () -> service.criarPessoa(pessoa), () -> "Campo de Email vazio retornar uma IllegalArgumentException!");
     }
+
+    @Test
+    @DisplayName("Quando criar uma pessoa com um email nulo retornar a mensagem correta!")
+    void testCriandoPessoa_ComEmailNulo_RetonarMensagemCorreta(){
+        pessoa.setEmail(null);
+        String mensagem = assertThrows(IllegalArgumentException.class, () -> service.criarPessoa(pessoa), () -> "Campo de Email vazio retornar uma IllegalArgumentException!").getMessage();
+        assertEquals(mensagem, "Email obrigatorio!");
+    }
+
 
 }
